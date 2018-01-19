@@ -57,7 +57,28 @@ public class LoggerMouse {
 
   public static void updateThingSpeak(int f1, int f2, int f3){
 
-    String data = "api_key="+apikey+"\nfield1="+f1;
+    String urlParameters = "param1=a&param2=b&param3=c";
+URL url = new URL("http://example.com/index.php");
+URLConnection conn = url.openConnection();
+
+conn.setDoOutput(true);
+
+OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
+
+writer.write(urlParameters);
+writer.flush();
+
+String line;
+BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+while ((line = reader.readLine()) != null) {
+    System.out.println(line);
+}
+writer.close();
+reader.close();         
+    
+    
+    String data = "api_key="+apikey+"&field1="+f1;
     try{
       URL url = new URL("https://api.thingspeak.com/update.xml");
       HttpURLConnection con = (HttpURLConnection) url.openConnection();
